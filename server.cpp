@@ -10,6 +10,7 @@
 using namespace std;
 int main()
 {
+<<<<<<< HEAD
     //创建套接字
     int ser_socket=socket(AF_INET,SOCK_STREAM,0);
     //bind信息
@@ -37,5 +38,8 @@ int main()
     //向客户端发送数据
     char str[1024]="hello";
     write(client_socket,str,sizeof(str));
+=======
+  
+>>>>>>> f36d70d564b8ae60f9ffa08c13f96a05e0620522
 
 }
