@@ -30,11 +30,12 @@ int main()
         perror("listen:");
         return -1;
     }
-    int 
-  
-
-    
-
-
+    //接受客户端数据
+    struct sockaddr_in client_addr;
+    socklen_t client_addr_size=sizeof(client_addr);
+    int client_socket=accept(ser_socket,(struct sockaddr*)&client_addr,&client_addr_size);
+    //向客户端发送数据
+    char str[1024]="hello";
+    write(client_socket,str,sizeof(str));
 
 }
