@@ -5,8 +5,12 @@ var client = new net.Socket();
 client.setEncoding('binary');
 //连接服务器
 client.connect(port,host,function(){
-    var a=client.write("helo");
-    console.log(a);
+    while(1)
+    {
+        var a=prompt("发送消息:");
+        client.write(a);
+    }  
+    
 });
 //接收服务器数据
 client.on('data',function(data){

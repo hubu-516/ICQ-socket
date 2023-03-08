@@ -5,7 +5,22 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 #include <sys/socket.h>
+#include <pthread.h>
 using namespace std;
+void* read_thread(void* id)
+{
+    char buf[2048];
+    int sock=*((int*)id);
+    while (1)
+    {
+        if(read(sock,buf,sizeof(buf))>0) cout<<buf<<endl; 
+    }
+    
+    
+    //结束进程和套接字
+    close(sock);
+    pthread_exit(NULL);
+}
 int main(){
     //创建套接字
     int sock = socket(AF_INET, SOCK_STREAM, 0);
@@ -20,12 +35,16 @@ int main(){
     else
     {
         char buffer[40]={0};
-        char str[100]="hello";
-        //write(sock,str,sizeof(*str));
-        send(sock,str,40,0);
-        read(sock, buffer, sizeof(buffer)-1);
-   
-        printf("Message form server: %s\n", buffer);
+        char str[2048];
+        pthread_t a=1;
+        pthread_create(&a,NULL,read_thread,(void*)&(sock));
+        while (1)
+        {
+            cin>>str;
+            send(sock,str,2048,0);
+        }       
+        
+        
     }
     //关闭套接字
     close(sock);

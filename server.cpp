@@ -23,7 +23,8 @@ void* server_thread(void* id)
        read(client_socket_,str,sizeof(str)); 
        cout<<str<<endl;
        //if(nbytes<0) cout<<"read_error:"<<nbytes<<endl;
-       for (int i = 0; i <= count; i++)
+       //send(client_socket[count],str,2048,0);
+       for (int i = 0; i < count; i++)
        {
             send(client_socket[i],str,2048,0);
        }
@@ -70,7 +71,7 @@ int main()
         count++;
     }
      
-    //向客户端发送数据
+
     
     
     //关闭ser_socket
