@@ -36,6 +36,8 @@ void* server_thread(void* id)
 }
 int main()
 {
+    //执行js转发脚本
+    system("node ~/ICQ/ICQ-SOCKET/socket.io.server.js");
     //创建套接字
     int ser_socket=socket(AF_INET,SOCK_STREAM,0);
     //bind信息
