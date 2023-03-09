@@ -28,7 +28,7 @@ int main(){
     //向服务器（特定的IP和端口）发起请求
     struct sockaddr_in serv_addr;
     serv_addr.sin_family = AF_INET;  //使用IPv4地址
-    serv_addr.sin_addr.s_addr = inet_addr("127.0.0.1");  //具体的IP地址
+    serv_addr.sin_addr.s_addr = inet_addr("81.68.123.231");  //具体的IP地址
     serv_addr.sin_port = htons(22516);  //端口
     if(connect(sock, (struct sockaddr*)&serv_addr, sizeof(serv_addr))!=0) cout<<"connect():error";
     //读取服务器传回的数据

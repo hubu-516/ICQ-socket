@@ -20,13 +20,13 @@ void* server_thread(void* id)
     int nbytes;
     while (1)
     {  //recv(client_socket,*str,2048,0);
-       read(client_socket_,str,sizeof(str)); 
-       cout<<str<<endl;
+       nbytes=read(client_socket_,str,sizeof(str)); 
+       cout<<"来自客户端："<<str<<endl;
        //if(nbytes<0) cout<<"read_error:"<<nbytes<<endl;
        //send(client_socket[count],str,2048,0);
        for (int i = 0; i < count; i++)
        {
-            send(client_socket[i],str,2048,0);
+            send(client_socket[i],str,nbytes,0);
        }
        
        
@@ -36,8 +36,8 @@ void* server_thread(void* id)
 }
 int main()
 {
-    //执行js转发脚本
-    system("node ~/ICQ/ICQ-SOCKET/socket.io.server.js");
+    
+    
     //创建套接字
     int ser_socket=socket(AF_INET,SOCK_STREAM,0);
     //bind信息
@@ -52,6 +52,7 @@ int main()
         return -1;
     }
     else cout<<"bind():done"<<endl;
+    
     //开始监听
     if(listen(ser_socket,SOMAXCONN)<-1)
     {
@@ -60,6 +61,8 @@ int main()
     }
     else cout<<"listen():done"<<endl;
     //不断接受客户端数据
+    //system("node socket.server.js");
+    //执行js转发脚本
     pthread_t count_id[99999];
     while (1)
     {

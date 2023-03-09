@@ -3,19 +3,27 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
     <title>web聊天室</title>
     
     <script src="socket.io/client-dist/socket.io.js" ></script>
-    <script src="socket.io.js" data-main="client"></script>
+    <script src="socket.js" data-main="client"></script>
 </head>
 <body>
     <div id="chat">
+        <style type="text/css">
+        .ti{
+            width: 1000px;
+            height: 700px;
+        }    
+        </style>
         <div id="content"></div>
         <div id="input">
-            <input type="text" id="text1" name="text" height="100" style="height: 700px;width: 1000px;" readonly>
+            <textarea style="resize:none" type="text" id="text1" name="text" class="ti" readonly></textarea>
             <p>
             <input type="text" id="text2" name="text" style="width: 700px" value="">
             <input type="button" id="btn" name="send" value="发送" onclick="client_send()"></p>
+            <p id="war"></p>
             
         </div>
     </div>

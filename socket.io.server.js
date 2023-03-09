@@ -1,26 +1,33 @@
+// 使用 express 框架
+//const res = require('response');
 var app = require('express')();
-var reader = require('FileReader');
+var express = require("express");
+const { message } = require('statuses');
 var server = require('http').Server(app);
-var WebSocket = require('ws');
+var http = require('http');
+const { response } = require('express');
+// 引入 socket.io
+var io = require('socket.io')(server);
+// 监听 23516 端口
+server.listen(23516);
+console.log('listening');
+// 开启静态资源服务
+app.use(express.static("./static"));
+// io 各种事件
+//response.setHeader("Access-Control-Allow-Origin", "*");
 
-var wss = new WebSocket.Server({ port: 23516 });
-
-wss.on('connection', function connection(ws) {
+io.on('connection', (io)=> {
     console.log('server: receive connection.');
-    ws.on('message', function incoming(message) {
-        console.log('server: received: %s', message);
-        reader.readAsText(message, 'utf-8');
-        reader.onload = function (e) {
-        
-        }
-        ws.send(reader.result);
+    io.on('say', (message) => {
+        console.log(typeof(message));
+        console.log('server: received: %s', message.toString());
+        io.broadcast.emit(message.toString());        
     });
-
-    ws.send('world');
+  
 });
 
-app.get('/', function (req, res) {
-  res.sendfile(__dirname + '/index.html');
-});
 
-app.listen(3000);
+
+
+
+
