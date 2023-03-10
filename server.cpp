@@ -26,10 +26,9 @@ void* server_thread(void* id)
        //send(client_socket[count],str,2048,0);
        for (int i = 0; i < count; i++)
        {
-            send(client_socket[i],str,nbytes,0);
+            send(client_socket[i],str,nbytes,MSG_NOSIGNAL);
        }
-       
-       
+        
     }
     close(client_socket_);
     pthread_exit(NULL);

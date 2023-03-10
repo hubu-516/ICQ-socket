@@ -20,7 +20,6 @@
         var val = document.getElementById("text2").value
         ws.send(val)
         document.getElementById("text2").value=""
-        document.getElementById("text1").value=document.getElementById("text1").value+e.data+"\n" 
     }
     else
     {
