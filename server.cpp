@@ -10,6 +10,8 @@
 using namespace std;
 int count;
 int client_socket[999];
+char *log[1000];
+int count_log=0;
 void* server_thread(void* id)
 {
 
@@ -18,12 +20,31 @@ void* server_thread(void* id)
     int client_socket_=*((int*)id);
     char str[2048]={0};
     int nbytes;
+    for (int i = 0; i < count_log; i++)
+    {
+        send(client_socket_,log[i],sizeof(log[i]),MSG_NOSIGNAL);
+    }
+
+    
     while (1)
     {  //recv(client_socket,*str,2048,0);
-       nbytes=read(client_socket_,str,sizeof(str)); 
-       cout<<"来自客户端："<<str<<endl;
+        nbytes=read(client_socket_,str,sizeof(str)); 
+        count_log++;
+        cout<<"来自客户端："<<str<<endl;
        //if(nbytes<0) cout<<"read_error:"<<nbytes<<endl;
        //send(client_socket[count],str,2048,0);
+        if (count_log<999) log[count_log]=str;
+        else
+        {
+            for (int i = 0; i < 500; i++)
+            {
+                log[i]=log[i+500];
+                log[i+500]="\0";
+            }
+            count_log=500;
+            log[count_log]=str;
+        }
+       
        for (int i = 0; i < count; i++)
        {
             send(client_socket[i],str,nbytes,MSG_NOSIGNAL);

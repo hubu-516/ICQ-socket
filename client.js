@@ -11,6 +11,15 @@ client.connect(port,host,function(){
 client.on('data',function(data){
     console.log("server say:"+ data);
     document.getElementById("text1").value=document.getElementById("text1").value+data+"\n";
+    // 选择聊天框元素
+    const chatBox = document.querySelector('#text2');
+
+    // 创建新消息元素
+    const newMessage = document.createElement('div');
+    newMessage.textContent = message;
+
+    // 将新消息添加到聊天框中
+    chatBox.appendChild(newMessage);
 });
 client.on('close',function(){
     console.log("closees safely");
