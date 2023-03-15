@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <string>
 #include <unistd.h>
 #include <arpa/inet.h>
 #include <sys/socket.h>
@@ -10,10 +11,11 @@ using namespace std;
 void* read_thread(void* id)
 {
     char buf[2048];
+    int n;
     int sock=*((int*)id);
     while (1)
     {
-        if(read(sock,buf,sizeof(buf))>0) cout<<buf<<endl; 
+        if(read(sock,buf,sizeof(buf))>0) cout<<"from server:"<<buf<<endl; 
     }
     
     
@@ -27,6 +29,7 @@ int main(){
 
     //向服务器（特定的IP和端口）发起请求
     struct sockaddr_in serv_addr;
+    memset(&serv_addr,0, sizeof(serv_addr));
     serv_addr.sin_family = AF_INET;  //使用IPv4地址
     serv_addr.sin_addr.s_addr = inet_addr("127.0.0.1");  //具体的IP地址
     serv_addr.sin_port = htons(22516);  //端口
@@ -34,19 +37,27 @@ int main(){
     //读取服务器传回的数据
     else
     {
-        char buffer[40]={0};
-        char str[2048]={0};
+        char buffer[40]={"\0"};
+        char str[2048];
+        struct mes
+        {
+            string nick;
+            string text;
+
+        }client_mes;
+        client_mes.nick="c++-linux";
         pthread_t a=1;
-        pthread_create(&a,NULL,read_thread,(void*)&(sock));
+        //pthread_create(&a,NULL,read_thread,(void*)&(sock));
         while (1)
         {
-            cin>>str;
+            cin>>client_mes.text;
             if (str[0]=='/'&&str[1]=='e'&&str[2]=='x'&&str[3]=='i'&&str[4]=='t')
             {
                 //send(sock,"/exit",2048,0);
                 break;
             }
-            send(sock,str,sizeof(str),0);
+            int a=send(sock,"123",3,0);
+            cout<<a<<endl;
         }       
         
         
