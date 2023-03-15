@@ -13,12 +13,11 @@
 using namespace std;
 void* read_thread(void* id)
 {
-    char *buffer;
     char buf[2048]={0};
     int sock=*((int*)id);
     while (1)
     {
-        if(recv(sock,buffer,sizeof(buffer),0)>0) cout<<buf<<endl; 
+        if(recv(sock,buf,2048,0)>0) cout<<buf<<endl; 
     }
     
     
@@ -52,13 +51,14 @@ int main(){
         string str;
 		
         pthread_t a=1;
-        pthread_create(&a,NULL,read_thread,(void*)&(sock));
+        HANDLE hThread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)read_thread, (void*)&sock, 0, NULL);
         while (1)
         {
             cin>>str;
             const char * mes;
 		    mes = str.c_str();     
             send(sock,mes,strlen(mes),0);
+            cout<<a<<endl;
         }       
         
         

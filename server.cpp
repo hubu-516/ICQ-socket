@@ -19,14 +19,16 @@ void* server_thread(void* id)
     char str[2048]={0};
     int nbytes;
     while (1)
-    {  //recv(client_socket,*str,2048,0);
-       nbytes=read(client_socket_,str,sizeof(str)); 
+    {  
+       nbytes=recv(client_socket_,str,sizeof(str),0);
+       //read(client_socket_,str,sizeof(str)); 
        cout<<"来自客户端："<<str<<endl;
        //if(nbytes<0) cout<<"read_error:"<<nbytes<<endl;
        //send(client_socket[count],str,2048,0);
        for (int i = 0; i < count; i++)
        {
             send(client_socket[i],str,nbytes,0);
+            
        }
        
        
