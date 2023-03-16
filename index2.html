@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="socket.js" data-main="client"></script>
+	<title>Chat Room</title>
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+		.chat-box .nick 
+		{
+  		color: blue;
+		}		
+		.chat-box .war
+		{
+		color: red;
+		}
+
+		body {
+			margin: 0;
+			font-family: Arial, sans-serif;
+			font-size: 16px;
+			line-height: 1.5;
+            background-image: url('background.png');
+            background-repeat: no-repeat;
+            background-size: cover;
+		}
+
+		.chat-container {
+			width: 100%;
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 1em;
+			box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+			border-radius: 5px;
+			background-color: #fff;
+            
+            opacity: 0.8; /* 设置透明度 */
+		}
+
+		.chat-box {
+			width: 100%;
+			height: 600px; /* Changed from 200px */
+			max-height: 400vh;
+			border: 1px solid #ccc;
+			overflow-y: scroll;
+			padding: 1em;
+			margin-bottom: 1em;
+			background-color: #f8f8f8;
+            color: rgb(0, 0, 0);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+           
+		}
+        h1 {
+			text-align: center;
+			margin-top: 15px;
+			font-size: 30px;
+		}
+		.chat-input {
+			width: 100%;
+			height: 2em;
+			margin-top: 1em;
+			margin-bottom: 1em;
+			padding: 0.5em;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+			background-color: #fff;
+		}
+
+		.nick-input {
+			width: 40%; /* Decreased from 100% */
+			height: 2em; /* Decreased from 2em */
+			margin-right: 0.5em; /* Added */
+			padding: 0.5em;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+			background-color: #fff;
+			display: inline-block; /* Added */
+		}
+
+		.send-btn {
+			width: 58%; /* Decreased from 100% */
+			height: 2em; /* Decreased from 2.5em */
+			background-color: #4CAF50;
+			color: white;
+			font-size: 1em;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			display: inline-block; /* Added */
+		}
+
+		@media (max-width: 768px) {
+			.chat-container {
+				max-width: 100%;
+				padding: 0.5em;
+			}
+
+			.chat-input,
+			.nick-input,
+			.send-btn {
+				height: 3em;
+				font-size: 0.9em;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="chat-container">
+        <h1>Chat Room</h1>
+		<div id="text1" class="chat-box"></div>
+		<input id="text2" type="text" class="chat-input" placeholder="输入消息..." onkeydown="if(event.keyCode===13){client_send();}">
+		<input id="text3" type="text" class="nick-input" placeholder="设置昵称...">
+		<button class="send-btn" onclick="client_send()">发送</button>
+	</div>
+    
+</body>
+</html>
