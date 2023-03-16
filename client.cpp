@@ -16,10 +16,11 @@ void* read_thread(void* id)
     char buf[2048]={0};
     int sock=*((int*)id);
     while (1)
-    {
-        if(recv(sock,buf,2048,0)>0) cout<<buf<<endl; 
+    { 
+        if(recv(sock,buf,2048,0)>0) cout<<"server:"<<buf<<endl; 
+        memset(buf,0,sizeof(buf));
     }
-    
+    //memset(buf,0,sizeof(buf));
     
     //结束进程和套接字
     closesocket(sock);
@@ -47,18 +48,17 @@ int main(){
     //读取服务器传回的数据
     else
     {
-        
-        string str;
-		
         pthread_t a=1;
         HANDLE hThread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)read_thread, (void*)&sock, 0, NULL);
         while (1)
         {
+            char str[2048]={0};
             cin>>str;
-            const char * mes;
-		    mes = str.c_str();     
-            send(sock,mes,strlen(mes),0);
-            cout<<a<<endl;
+            //const char * mes;
+		    //mes = str.c_str();
+            
+            send(sock,str,strlen(str),0);
+            memset(str,0,sizeof(str));
         }       
         
         
