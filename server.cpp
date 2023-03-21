@@ -52,7 +52,7 @@ void* server_thread(void* id)
     {
         
         send(client_socket_,line,sizeof(line),MSG_NOSIGNAL);
-        usleep(20000);
+        usleep(30000);
     }
     send(client_socket_,"/log done",9,MSG_NOSIGNAL);
     file.close(); 
@@ -62,7 +62,7 @@ void* server_thread(void* id)
         //recv(client_socket,*str,2048,0);
         
         nbytes=read(client_socket_,str,sizeof(str)); 
-        if(nbytes<0) 
+        if(nbytes<=0) 
         {
             close(client_socket_);
             cout<<"客户端"<<client_socket_<<"断开了连接"<<endl;

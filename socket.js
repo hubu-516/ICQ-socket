@@ -21,6 +21,7 @@
   message.appendChild(nickSpan);
   message.appendChild(textSpan);
   document.getElementById('text1').appendChild(message);
+  document.getElementById('ji').play();
   //将聊天框拖到最下方
   text1.scrollTop = text1.scrollHeight;
   };

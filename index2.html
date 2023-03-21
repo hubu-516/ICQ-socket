@@ -2,9 +2,11 @@
 <html>
 <head>
     <meta charset="UTF-8">
+	<link rel="shortcut icon" href="./chat.ico">
+	<audio id="ji" src="ji.mp3"></audio>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="socket.js" data-main="client"></script>
-	<title>Chat Room</title>
+	<title>QICQ</title>
 	<style>
 		* {
 			box-sizing: border-box;
@@ -109,11 +111,13 @@
 </head>
 <body>
 	<div class="chat-container">
-        <h1>Chat Room</h1>
+        <h1>QICQ</h1>
+
 		<div id="text1" class="chat-box"></div>
 		<input id="text2" type="text" class="chat-input" placeholder="输入消息..." onkeydown="if(event.keyCode===13){client_send();}">
 		<input id="text3" type="text" class="nick-input" placeholder="设置昵称...">
 		<button class="send-btn" onclick="client_send()">发送</button>
+		<a href="http://81.68.123.231/file/chat.rar">点击下载客户端</a>
 	</div>
     
 </body>
